@@ -1,0 +1,368 @@
+﻿@model src.Models.Ticket
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Add / Edit Ticket</h4>
+</div>
+<form onsubmit="return SubmitAddEdit(this)">
+    <div class="box-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ticketId" />
+        <input type="hidden" asp-for="organizationId" />
+        <input type="hidden" asp-for="customerId" />
+        <input type="hidden" asp-for="CreateBy" />
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label asp-for="ticketType" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="ticketType" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.TicketType>()"></select> }
+                    else
+                    {
+                        <select asp-for="ticketType" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.TicketType>()"></select>}
+                    <span asp-validation-for="ticketType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label asp-for="ticketPriority" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="ticketPriority" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.TicketPriority>()"></select>}
+                    else
+                    {
+                        <select asp-for="ticketPriority" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.TicketPriority>()"></select>}
+                    <span asp-validation-for="ticketPriority" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="ticketChannel" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="ticketChannel" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.TicketChannel>()"></select>}
+                    else
+                    {
+                        <select asp-for="ticketChannel" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.TicketChannel>()"></select>}
+                    <span asp-validation-for="ticketChannel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="email" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="email" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.email</textarea>}
+                    else
+                    {
+                        <textarea asp-for="email" class="form-control" style="min-width:100%"></textarea>}
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ticketSource" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="ticketSource" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.TicketSource>()"></select>}
+                    else
+                    {
+                        <select asp-for="ticketSource" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.TicketSource>()"></select>}
+                    <span asp-validation-for="ticketSource" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="customerLocation" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="customerLocation" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.TicketSource>()"></textarea>}
+                    else
+                    {
+                        <textarea asp-for="customerLocation" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.TicketSource>()"></textarea>}
+                    <span asp-validation-for="customerLocation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="subCategory1" id="sub1" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="subCategory1" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory1>()"></select>}
+                    else
+                    {
+                        <select asp-for="subCategory1" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory1>()"></select>}
+                    <span asp-validation-for="subCategory1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="subCategory2" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="subCategory2" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory2>()"></select>}
+                    else
+                    {
+                        <select asp-for="subCategory2" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory2>()"></select>}
+                    <span asp-validation-for="subCategory2" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="subCategory3" id="sub3" class="control-label"></label>
+
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <select asp-for="subCategory3" class="form-control" readonly="readonly" disabled="disabled" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory3>()"></select>}
+                    else
+                    {
+                        <select asp-for="subCategory3" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory3>()"></select>}
+                    <span asp-validation-for="subCategory3" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="paymentReference" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="paymentReference" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.paymentReference</textarea>}
+                    else
+                    {
+                        <textarea asp-for="paymentReference" class="form-control" style="min-width:100%">@ViewBag.paymentReference</textarea>}
+
+                    <span asp-validation-for="paymentReference" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="sessionID" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="sessionID" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.sessionID</textarea>}
+                    else
+                    {
+                        <textarea asp-for="sessionID" class="form-control" style="min-width:100%">@ViewBag.sessionID</textarea>}
+
+                    <span asp-validation-for="sessionID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="accountNumber" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="accountNumber" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.accountNumber</textarea>}
+                    else
+                    {
+                        <textarea asp-for="accountNumber" class="form-control" style="min-width:100%">@ViewBag.accountNumber</textarea>}
+
+                    <span asp-validation-for="accountNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="date" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="date" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.date</textarea>}
+                    else
+                    {
+                        <textarea asp-for="date" class="form-control" style="min-width:100%">@ViewBag.date</textarea>}
+
+                    <span asp-validation-for="date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="amount" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="amount" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.amount</textarea>}
+                    else
+                    {
+                        <textarea asp-for="amount" class="form-control" style="min-width:100%">@ViewBag.amount</textarea>}
+
+                    <span asp-validation-for="amount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="billerRef" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="billerRef" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.billerRef</textarea>}
+                    else
+                    {
+                        <textarea asp-for="billerRef" class="form-control" style="min-width:100%">@ViewBag.billerRef</textarea>}
+
+                    <span asp-validation-for="billerRef" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="meterNumber" class="control-label"></label>
+                    @if (!String.IsNullOrEmpty(Model.description))
+                    {
+                        <textarea asp-for="meterNumber" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.meterNumber</textarea>}
+                    else
+                    {
+                        <textarea asp-for="meterNumber" class="form-control" style="min-width:100%">@ViewBag.meterNumber</textarea>}
+
+                    <span asp-validation-for="meterNumber" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            @*<div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="ticketName" class="control-label"></label>
+                        <input asp-for="ticketName" class="form-control" />
+                        <span asp-validation-for="ticketName" class="text-danger"></span>
+                    </div>
+                </div>*@
+            @*if ($("#ticketChannel.val() option") = "FRAUD") {
+
+                $("#productId").removeAttr("disabled");
+                }*@
+            @*<div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="productId" class="control-label"></label>
+                        <select asp-for="productId" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.SubCategory1>()"></select>
+                        <span asp-validation-for="productId" class="text-danger"></span>
+                    </div>
+                </div>*@
+        </div>
+        <div class="form-group">
+            <label asp-for="description" class="control-label"></label>
+            @if (!String.IsNullOrEmpty(Model.description))
+            {
+                <textarea asp-for="description" class="form-control" readonly="readonly" disabled="disabled" style="min-width:100%">@ViewBag.Text</textarea>}
+            else
+            {
+                <textarea asp-for="description" class="form-control" style="min-width:100%">@ViewBag.Text</textarea>}
+
+            <span asp-validation-for="description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+
+
+            @if (!String.IsNullOrEmpty(Model.description))
+            {
+                <label asp-for="comments" class="control-label"></label>
+                <textarea asp-for="comments" class="form-control" style="min-width:100%">@ViewBag.Text</textarea>}
+            else
+            {
+            }
+
+            <span asp-validation-for="comments" class="text-danger"></span>
+        </div>
+        <div class="row">
+            @*<div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="comments" class="control-label"></label>
+                        <input asp-for="comments" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                </div>*@
+            @*<div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="phone" class="control-label"></label>
+                            <input asp-for="phone" class="form-control" />
+                            <span asp-validation-for="phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="contactId" class="control-label"></label>
+                            <select asp-for="contactId" class="form-control" asp-items="@ViewBag.contactId"></select>
+                            <span asp-validation-for="contactId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="form-group">
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="ticketStatus" class="control-label"></label>
+                        @if (!String.IsNullOrEmpty(Model.description))
+                        {
+                            <select asp-for="ticketStatus" class="form-control" readonly="readonly"  asp-items="Html.GetEnumSelectList<src.Enum.TicketStatus>()"></select>}
+                        else if (ViewBag.user.Contains("coralpay"))
+                        {
+                            <select asp-for="ticketStatus" class="form-control" asp-items="Html.GetEnumSelectList<src.Enum.TicketStatus>()"></select>
+                        }
+                        else
+                        {
+                            <select asp-for="ticketStatus" class="form-control" readonly="readonly" asp-items="Html.GetEnumSelectList<src.Enum.TicketStatus>()"></select>}
+
+                        <span asp-validation-for="ticketStatus" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="supportAgentId" class="control-label"></label>
+                        @if (!String.IsNullOrEmpty(Model.description) && (!ViewBag.user.Contains("coralpay")))
+                        {
+                            <select asp-for="supportAgentId" class="form-control" readonly="readonly"  asp-items="@ViewBag.supportAgentId"></select>
+                        }
+                        else if (ViewBag.user.Contains("coralpay"))
+                        {
+                            <select asp-for="supportAgentId" class="form-control" asp-items="@ViewBag.supportAgentId"></select>
+                        }
+                        else
+                        {
+                            <select asp-for="supportAgentId" class="form-control" readonly="readonly" asp-items="@ViewBag.supportAgentId"></select>}
+
+                        <span asp-validation-for="supportAgentId" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<div class="col-lg-4">
+                        <div class="form-group">
+                            <label asp-for="supportEngineerId" class="control-label"></label>
+                            <select asp-for="supportEngineerId" class="form-control" asp-items="@ViewBag.supportEngineerId"></select>
+                            <span asp-validation-for="supportEngineerId" class="text-danger"></span>
+                        </div>
+                    </div>*@
+            </div>
+
+
+
+        </div>
+        @*@if (ViewBag.user.Contains("coralpay.com"))
+            {
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Submit</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                </div>
+            }
+            else
+            {
+                <div class="box-footer">
+                    <button type="submit" disabled="disabled" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Submit</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                </div>
+            }*@
+
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Submit</button>
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+</form>
+<script>
+    $("#ticketChannel").on("change", function () {
+        if ($("#ticketChannel option:selected").val() == 1) {
+            $("#subCategory1").hide();
+            /*document.getElementById(sub1).style.display = "none";*/
+            $("#subCategory3").hide();
+            /*document.getElementById(sub3).style.display = "none";*/
+            $("#subCategory2").show();
+        } else if ($("#ticketChannel option:selected").val() == 0) {
+            $("#subCategory2").hide();
+            $("#subCategory3").hide();
+            $("#subCategory1").show();
+        } else if ($("#ticketChannel option:selected").val() == 2) {
+            $("#subCategory1").hide();
+            $("#subCategory2").hide();
+            $("#subCategory3").show();
+        }
+    });
+</script>
+<script>
+    Ladda.bind('.btn', { timeout: 1000 });
+</script>
+
+
